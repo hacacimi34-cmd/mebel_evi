@@ -1,4 +1,4 @@
-require('dotenv').config();
+process.env.MONGODB_URI
 const express = require('express');
 const mongoose = require('mongoose');
 const session = require('express-session');
@@ -9,9 +9,10 @@ const path = require('path');
 const app = express();
 
 // MongoDB
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/mebel-evi')
-  .then(() => console.log('✅ MongoDB bağlandı'))
-  .catch(err => console.error('❌ MongoDB xəta:', err.message));
+const dbURI = process.env.MONGODB_URI || 'mongodb+srv://hacacimi34_db_user:tFuhqsuEMXXWBti0@cluster0.16wbenj.mongodb.net/?retryWrites=true&w=majority';
+mongoose.connect(dbURI)
+  .then(() => console.log('✅ Bazaya uğurla qoşulduq!'))
+  .catch((err) => console.log('❌ Xəta:', err));
 
 // View engine
 app.set('view engine', 'ejs');
