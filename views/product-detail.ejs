@@ -26,7 +26,7 @@
         <% if(product.images && product.images.length > 1) { %>
         <div class="thumb-grid">
           <% product.images.forEach((img, i) => { %>
-          <img src="<%= img %>" class="thumb-img <%= i===0 ? 'active':'' %>"
+          <img src="/uploads/products/<%= img %>" class="thumb-img <%= i===0 ? 'active':'' %>" ... >
             onclick="document.getElementById('mainImg').src='<%= img %>'; document.querySelectorAll('.thumb-img').forEach(t=>t.classList.remove('active')); this.classList.add('active')">
           <% }) %>
         </div>
