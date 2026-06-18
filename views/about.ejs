@@ -1,0 +1,72 @@
+<%- include('partials/header') %>
+
+<section class="page-hero">
+  <div class="container">
+    <h1><%=t.about_title%></h1>
+    <div class="breadcrumb">
+      <a href="/"><%=t.home%></a> <i class="fas fa-chevron-right"></i> <span><%=t.about%></span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="about-layout">
+      <div class="about-text">
+        <h2><%= lang === 'az' ? 'Bizim Hekayəmiz' : 'Our Story' %></h2>
+        <div class="section-line"></div>
+        <p><%=t.about_text%></p>
+        <p><%= lang === 'az'
+          ? 'Hər bir mebel parçası diqqətlə seçilir və yüksək standartlara uyğun istehsal edilir. Müştəri məmnuniyyəti bizim birinci prioritetimizdir.'
+          : 'Each piece of furniture is carefully selected and manufactured to the highest standards. Customer satisfaction is our top priority.' %></p>
+        <div class="about-stats">
+          <div class="stat"><strong>14+</strong><span><%= lang === 'az' ? 'İl Təcrübə' : 'Years Experience' %></span></div>
+          <div class="stat"><strong>5000+</strong><span><%= lang === 'az' ? 'Məmnun Müştəri' : 'Happy Customers' %></span></div>
+          <div class="stat"><strong>500+</strong><span><%= lang === 'az' ? 'Məhsul' : 'Products' %></span></div>
+          <div class="stat"><strong>3</strong><span><%= lang === 'az' ? 'Mağaza' : 'Stores' %></span></div>
+        </div>
+      </div>
+      <div class="about-image">
+        <div class="about-img-wrap">
+          <div class="about-img-placeholder">
+            <i class="fas fa-couch"></i>
+            <span>Mebel Evi</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section team-section" style="background:#f9f6f2">
+  <div class="container">
+    <div class="section-header">
+      <h2><%= lang === 'az' ? 'Niyə Bizi Seçin?' : 'Why Choose Us?' %></h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <i class="fas fa-star"></i>
+        <h4><%= lang === 'az' ? 'Premium Keyfiyyət' : 'Premium Quality' %></h4>
+        <p><%= lang === 'az' ? 'Yalnız ən yüksək keyfiyyətli materiallardan istifadə edirik' : 'We use only the highest quality materials' %></p>
+      </div>
+      <div class="why-card">
+        <i class="fas fa-palette"></i>
+        <h4><%= lang === 'az' ? 'Müasir Dizayn' : 'Modern Design' %></h4>
+        <p><%= lang === 'az' ? 'Dünya trendlərini izləyən dizayn kolleksiyaları' : 'Design collections following world trends' %></p>
+      </div>
+      <div class="why-card">
+        <i class="fas fa-truck"></i>
+        <h4><%= lang === 'az' ? 'Sürətli Çatdırılma' : 'Fast Delivery' %></h4>
+        <p><%= lang === 'az' ? 'Sifarişinizi 3-5 iş günü ərzində çatdırırıq' : 'We deliver your order within 3-5 business days' %></p>
+      </div>
+      <div class="why-card">
+        <i class="fas fa-tools"></i>
+        <h4><%= lang === 'az' ? 'Quraşdırma Xidməti' : 'Installation Service' %></h4>
+        <p><%= lang === 'az' ? 'Peşəkar komandamız mebeli evinizə quraşdıracaq' : 'Our professional team will install furniture in your home' %></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,87 @@
+<%- include('partials/header') %>
+
+<section class="page-hero">
+  <div class="container">
+    <h1><%=t.your_cart%></h1>
+    <div class="breadcrumb">
+      <a href="/"><%=t.home%></a> <i class="fas fa-chevron-right"></i> <span><%=t.cart%></span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <% if(cart.length === 0) { %>
+      <div class="empty-state">
+        <i class="fas fa-shopping-bag"></i>
+        <h3><%=t.cart_empty%></h3>
+        <a href="/products" class="btn btn-primary"><%=t.continue_shopping%></a>
+      </div>
+    <% } else { %>
+    <div class="cart-layout">
+      <div class="cart-items">
+        <% cart.forEach(item => { %>
+        <div class="cart-item">
+          <div class="cart-item-img">
+            <% if(item.image) { %>
+              <img src="<%= item.image %>" alt="<%= item.name %>">
+            <% } else { %>
+              <div class="no-img-sm"><i class="fas fa-couch"></i></div>
+            <% } %>
+          </div>
+          <div class="cart-item-info">
+            <h4><%= item.name %></h4>
+            <span class="item-price"><%= item.price %> ₼</span>
+          </div>
+          <form action="/cart/update" method="POST" class="qty-form">
+            <input type="hidden" name="productId" value="<%= item.productId %>">
+            <div class="qty-control-sm">
+              <button type="button" onclick="updateQty(this, -1)">-</button>
+              <input type="number" name="qty" value="<%= item.qty %>" min="1" onchange="this.form.submit()">
+              <button type="button" onclick="updateQty(this, 1)">+</button>
+            </div>
+          </form>
+          <span class="cart-item-total"><%= (item.price * item.qty).toFixed(2) %> ₼</span>
+          <form action="/cart/remove" method="POST">
+            <input type="hidden" name="productId" value="<%= item.productId %>">
+            <button type="submit" class="remove-btn"><i class="fas fa-trash"></i></button>
+          </form>
+        </div>
+        <% }) %>
+      </div>
+
+      <div class="cart-summary">
+        <h3><%= lang === 'az' ? 'Sifariş Xülasəsi' : 'Order Summary' %></h3>
+        <div class="summary-row">
+          <span><%=t.subtotal%></span>
+          <strong><%= total.toFixed(2) %> ₼</strong>
+        </div>
+        <div class="summary-row">
+          <span><%= lang === 'az' ? 'Çatdırılma' : 'Delivery' %></span>
+          <strong><%= total >= 200 ? (lang === 'az' ? 'Pulsuz' : 'Free') : '15 ₼' %></strong>
+        </div>
+        <div class="summary-row total-row">
+          <span><%=t.total%></span>
+          <strong><%= (total >= 200 ? total : total + 15).toFixed(2) %> ₼</strong>
+        </div>
+        <a href="/checkout" class="btn btn-primary btn-full">
+          <%=t.checkout%> <i class="fas fa-arrow-right"></i>
+        </a>
+        <a href="/products" class="btn btn-outline btn-full"><%=t.continue_shopping%></a>
+      </div>
+    </div>
+    <% } %>
+  </div>
+</section>
+
+<script>
+function updateQty(btn, delta) {
+  const form = btn.closest('.qty-form');
+  const input = form.querySelector('input[name="qty"]');
+  const newVal = Math.max(1, parseInt(input.value) + delta);
+  input.value = newVal;
+  form.submit();
+}
+</script>
+
+<%- include('partials/footer') %>

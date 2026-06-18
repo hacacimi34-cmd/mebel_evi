@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Mebel Evi</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="admin-body">
+
+<div class="admin-layout">
+  <!-- Sidebar -->
+  <aside class="admin-sidebar">
+    <div class="sidebar-logo">
+      <i class="fas fa-couch"></i>
+      <span>Mebel Evi</span>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="/admin" class="<%= currentPage === 'dashboard' ? 'active' : '' %>">
+        <i class="fas fa-tachometer-alt"></i> Dashboard
+      </a>
+      <a href="/admin/products" class="<%= currentPage === 'products' ? 'active' : '' %>">
+        <i class="fas fa-box"></i> Məhsullar
+      </a>
+      <a href="/admin/categories" class="<%= currentPage === 'categories' ? 'active' : '' %>">
+        <i class="fas fa-tags"></i> Kateqoriyalar
+      </a>
+      <a href="/admin/orders" class="<%= currentPage === 'orders' ? 'active' : '' %>">
+        <i class="fas fa-shopping-cart"></i> Sifarişlər
+      </a>
+      <div class="sidebar-divider"></div>
+      <a href="/" target="_blank"><i class="fas fa-external-link-alt"></i> Sayta Get</a>
+      <a href="/admin/logout" class="logout-link"><i class="fas fa-sign-out-alt"></i> Çıxış</a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="admin-main">
+    <header class="admin-topbar">
+      <h2><%= pageTitle || 'Admin Panel' %></h2>
+      <div class="topbar-right">
+        <span class="admin-badge"><i class="fas fa-user-shield"></i> Admin</span>
+      </div>
+    </header>
+
+    <div class="admin-content">
+      <% if(typeof flashSuccess !== 'undefined' && flashSuccess) { %>
+        <div class="alert alert-success"><i class="fas fa-check-circle"></i> <%= flashSuccess %></div>
+      <% } %>

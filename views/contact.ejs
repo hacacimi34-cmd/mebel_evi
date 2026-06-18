@@ -1,0 +1,82 @@
+<%- include('partials/header') %>
+
+<section class="page-hero">
+  <div class="container">
+    <h1><%=t.contact_title%></h1>
+    <div class="breadcrumb">
+      <a href="/"><%=t.home%></a> <i class="fas fa-chevron-right"></i> <span><%=t.contact%></span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="contact-layout">
+      <div class="contact-info-section">
+        <h3><%=t.our_address%></h3>
+        <div class="contact-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <div>
+            <strong><%= lang === 'az' ? 'Bakı Mağazası' : 'Baku Store' %></strong>
+            <span>Neftçilər pr. 12, Bakı</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-phone"></i>
+          <div>
+            <strong><%= lang === 'az' ? 'Telefon' : 'Phone' %></strong>
+            <span><a href="tel:+994123456789" style="color:inherit">+994 12 345 67 89</a></span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-envelope"></i>
+          <div>
+            <strong>Email</strong>
+            <span>info@mebelevi.az</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-clock"></i>
+          <div>
+            <strong><%=t.working_hours%></strong>
+            <span><%= lang === 'az' ? 'B.E - Cümə: 09:00 - 19:00' : 'Mon - Fri: 09:00 - 19:00' %></span>
+            <span><%= lang === 'az' ? 'Şənbə: 10:00 - 17:00' : 'Saturday: 10:00 - 17:00' %></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form-section">
+        <h3><%=t.send_message%></h3>
+        <form class="contact-form" onsubmit="sendMessage(event)">
+          <div class="form-group">
+            <label><%=t.your_name%></label>
+            <input type="text" name="name" required>
+          </div>
+          <div class="form-group">
+            <label><%=t.your_email%></label>
+            <input type="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label><%=t.your_message%></label>
+            <textarea rows="5" name="message" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-paper-plane"></i> <%=t.send%>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+function sendMessage(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('button');
+  btn.innerHTML = '<i class="fas fa-check"></i> <%= lang === "az" ? "Göndərildi!" : "Sent!" %>';
+  btn.style.background = '#27ae60';
+  setTimeout(() => { e.target.reset(); btn.innerHTML = '<i class="fas fa-paper-plane"></i> <%=t.send%>'; btn.style.background = ''; }, 3000);
+}
+</script>
+
+<%- include('partials/footer') %>

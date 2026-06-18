@@ -1,0 +1,82 @@
+<%- include('partials/header') %>
+
+<section class="page-hero">
+  <div class="container">
+    <h1><%=t.all_products%></h1>
+    <div class="breadcrumb">
+      <a href="/"><%=t.home%></a> <i class="fas fa-chevron-right"></i> <span><%=t.products%></span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="shop-layout">
+      <!-- Sidebar Filters -->
+      <aside class="shop-sidebar">
+        <h3><%=t.filter%></h3>
+        <form method="GET" action="/products" id="filterForm">
+          <% if(query.search) { %>
+            <input type="hidden" name="search" value="<%= query.search %>">
+          <% } %>
+
+          <div class="filter-group">
+            <label><%=t.categories%></label>
+            <% categories.forEach(cat => { %>
+            <label class="filter-check">
+              <input type="radio" name="category" value="<%= cat.name.en %>"
+                <%= query.category === cat.name.en ? 'checked' : '' %> onchange="this.form.submit()">
+              <%= cat.name[lang] || cat.name.az %>
+            </label>
+            <% }) %>
+            <% if(query.category) { %>
+              <a href="/products" class="clear-filter"><i class="fas fa-times"></i> <%= lang === 'az' ? 'Təmizlə' : 'Clear' %></a>
+            <% } %>
+          </div>
+
+          <div class="filter-group">
+            <label><%=t.price%></label>
+            <div class="price-range">
+              <input type="number" name="min" placeholder="Min" value="<%= query.min || '' %>" min="0">
+              <span>-</span>
+              <input type="number" name="max" placeholder="Max" value="<%= query.max || '' %>" min="0">
+            </div>
+            <button type="submit" class="btn btn-sm btn-primary"><%=t.filter%></button>
+          </div>
+
+          <div class="filter-group">
+            <label><%=t.sort_by%></label>
+            <select name="sort" onchange="this.form.submit()">
+              <option value="" <%= !query.sort ? 'selected' : '' %>><%=t.newest%></option>
+              <option value="price-asc" <%= query.sort === 'price-asc' ? 'selected' : '' %>><%=t.price_asc%></option>
+              <option value="price-desc" <%= query.sort === 'price-desc' ? 'selected' : '' %>><%=t.price_desc%></option>
+            </select>
+          </div>
+        </form>
+      </aside>
+
+      <!-- Products Grid -->
+      <div class="shop-main">
+        <div class="shop-toolbar">
+          <span><%= products.length %> <%= lang === 'az' ? 'məhsul tapıldı' : 'products found' %></span>
+        </div>
+
+        <% if(products.length === 0) { %>
+          <div class="empty-state">
+            <i class="fas fa-box-open"></i>
+            <p><%= lang === 'az' ? 'Məhsul tapılmadı' : 'No products found' %></p>
+            <a href="/products" class="btn btn-primary"><%=t.all_products%></a>
+          </div>
+        <% } else { %>
+          <div class="products-grid">
+            <% products.forEach(product => { %>
+            <%- include('partials/product-card', { product, t, lang }) %>
+            <% }) %>
+          </div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

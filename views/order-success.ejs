@@ -1,0 +1,23 @@
+<%- include('partials/header') %>
+
+<section class="success-page">
+  <div class="container">
+    <div class="success-card">
+      <div class="success-icon">
+        <i class="fas fa-check-circle"></i>
+      </div>
+      <h1><%=t.order_success%></h1>
+      <p><%=t.thank_you%></p>
+      <div class="order-num-badge">
+        <span><%=t.order_number%></span>
+        <strong>#<%= orderNumber %></strong>
+      </div>
+      <div class="success-actions">
+        <a href="/products" class="btn btn-primary"><%=t.continue_shopping%></a>
+        <a href="/" class="btn btn-outline"><%=t.home%></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

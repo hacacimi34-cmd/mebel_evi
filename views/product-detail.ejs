@@ -1,0 +1,122 @@
+<%- include('partials/header') %>
+
+<section class="page-hero">
+  <div class="container">
+    <h1><%= product.name[lang] || product.name.az %></h1>
+    <div class="breadcrumb">
+      <a href="/"><%=t.home%></a> <i class="fas fa-chevron-right"></i>
+      <a href="/products"><%=t.products%></a> <i class="fas fa-chevron-right"></i>
+      <span><%= product.name[lang] || product.name.az %></span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="product-detail-layout">
+      <!-- Images -->
+      <div class="product-gallery">
+        <div class="main-image">
+          <% if(product.mainImage) { %>
+            <img src="<%= product.mainImage %>" alt="<%= product.name[lang] %>" id="mainImg">
+          <% } else { %>
+            <div class="no-img-lg"><i class="fas fa-couch"></i></div>
+          <% } %>
+        </div>
+        <% if(product.images && product.images.length > 1) { %>
+        <div class="thumb-grid">
+          <% product.images.forEach((img, i) => { %>
+          <img src="<%= img %>" class="thumb-img <%= i===0 ? 'active':'' %>"
+            onclick="document.getElementById('mainImg').src='<%= img %>'; document.querySelectorAll('.thumb-img').forEach(t=>t.classList.remove('active')); this.classList.add('active')">
+          <% }) %>
+        </div>
+        <% } %>
+      </div>
+
+      <!-- Info -->
+      <div class="product-detail-info">
+        <span class="product-category"><%= product.category ? (product.category[lang] || product.category.az) : '' %></span>
+        <h1><%= product.name[lang] || product.name.az %></h1>
+
+        <div class="detail-price">
+          <% if(product.discountPrice) { %>
+            <span class="price-new big"><%= product.discountPrice %> ₼</span>
+            <span class="price-old"><%= product.price %> ₼</span>
+            <span class="discount-pct">-<%= Math.round((1 - product.discountPrice/product.price)*100) %>%</span>
+          <% } else { %>
+            <span class="price-new big"><%= product.price %> ₼</span>
+          <% } %>
+        </div>
+
+        <div class="stock-badge <%= product.inStock ? 'in-stock' : 'out-stock' %>">
+          <i class="fas fa-<%= product.inStock ? 'check' : 'times' %>-circle"></i>
+          <%= product.inStock ? t.in_stock : t.out_of_stock %>
+        </div>
+
+        <% if(product.description && (product.description[lang] || product.description.az)) { %>
+        <p class="product-desc"><%= product.description[lang] || product.description.az %></p>
+        <% } %>
+
+        <div class="product-specs">
+          <% if(product.material && (product.material[lang] || product.material.az)) { %>
+          <div class="spec-row"><span><%=t.material%>:</span><strong><%= product.material[lang] || product.material.az %></strong></div>
+          <% } %>
+          <% if(product.dimensions) { %>
+          <div class="spec-row"><span><%=t.dimensions%>:</span><strong><%= product.dimensions %></strong></div>
+          <% } %>
+        </div>
+
+        <% if(product.inStock) { %>
+        <div class="add-to-cart-section">
+          <div class="qty-control">
+            <button onclick="changeQty(-1)">-</button>
+            <input type="number" id="qtyInput" value="1" min="1" max="10">
+            <button onclick="changeQty(1)">+</button>
+          </div>
+          <button class="btn btn-primary btn-lg add-to-cart-btn" data-id="<%= product._id %>">
+            <i class="fas fa-shopping-bag"></i> <%=t.add_to_cart%>
+          </button>
+        </div>
+        <% } %>
+
+        <div class="product-share">
+          <span><%= lang === 'az' ? 'Paylaş:' : 'Share:' %></span>
+          <a href="#" onclick="shareWhatsApp()"><i class="fab fa-whatsapp"></i></a>
+          <a href="#" onclick="shareFacebook()"><i class="fab fa-facebook"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Related -->
+    <% if(related.length > 0) { %>
+    <div class="related-section">
+      <h2><%=t.related%></h2>
+      <div class="section-line"></div>
+      <div class="products-grid">
+        <% related.forEach(p => { %>
+        <%- include('partials/product-card', { product: p, t, lang }) %>
+        <% }) %>
+      </div>
+    </div>
+    <% } %>
+  </div>
+</section>
+
+<script>
+function changeQty(delta) {
+  const inp = document.getElementById('qtyInput');
+  inp.value = Math.max(1, parseInt(inp.value) + delta);
+}
+document.querySelector('.add-to-cart-btn').addEventListener('click', function() {
+  const qty = document.getElementById('qtyInput')?.value || 1;
+  addToCart(this.dataset.id, qty);
+});
+function shareWhatsApp() {
+  window.open('https://wa.me/?text=' + encodeURIComponent(window.location.href));
+}
+function shareFacebook() {
+  window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location.href));
+}
+</script>
+
+<%- include('partials/footer') %>

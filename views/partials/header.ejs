@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mebel Evi - Premium Furniture</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <div class="top-bar">
+  <div class="container">
+    <span><i class="fas fa-phone"></i> <a href="tel:+994123456789" style="color:inherit">+994 12 345 67 89</a></span>
+    <span><i class="fas fa-envelope"></i> <a href="mailto:info@mebelevi.az" style="color:inherit">info@mebelevi.az</a></span>
+    <div class="lang-switcher">
+      <a href="/lang/az" class="<%= lang === 'az' ? 'active' : '' %>">AZ</a>
+      <span>|</span>
+      <a href="/lang/en" class="<%= lang === 'en' ? 'active' : '' %>">EN</a>
+    </div>
+  </div>
+</div>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="container nav-inner">
+    <a href="/" class="logo">
+      <span class="logo-icon"><i class="fas fa-couch"></i></span>
+      <div class="logo-text">
+        <span class="logo-main">Mebel Evi</span>
+        <span class="logo-sub">Premium Furniture</span>
+      </div>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="/"><%=t.home%></a></li>
+      <li><a href="/products"><%=t.products%></a></li>
+      <li><a href="/about"><%=t.about%></a></li>
+      <li><a href="/contact"><%=t.contact%></a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <button class="search-toggle" onclick="toggleSearch()"><i class="fas fa-search"></i></button>
+      <a href="/cart" class="cart-btn">
+        <i class="fas fa-shopping-bag"></i>
+        <% if(cartCount > 0) { %><span class="cart-badge"><%= cartCount %></span><% } %>
+      </a>
+      <button class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+    </div>
+  </div>
+
+  <!-- Search Bar -->
+  <div class="search-bar" id="searchBar">
+    <div class="container">
+      <form action="/products" method="GET">
+        <input type="text" name="search" placeholder="<%=t.search%>" autofocus>
+        <button type="submit"><i class="fas fa-search"></i></button>
+      </form>
+    </div>
+  </div>
+</nav>
+
+<!-- Flash Messages -->
+<% if(success && success.length > 0) { %>
+<div class="flash flash-success"><i class="fas fa-check-circle"></i> <%= success %></div>
+<% } %>
+<% if(error && error.length > 0) { %>
+<div class="flash flash-error"><i class="fas fa-exclamation-circle"></i> <%= error %></div>
+<% } %>

@@ -1,0 +1,59 @@
+<%- include('layout', { currentPage: 'categories', pageTitle: 'Kateqoriyalar', flashSuccess: typeof success !== 'undefined' ? success : null }) %>
+
+<div class="two-col-layout">
+  <!-- Add Form -->
+  <div class="form-card">
+    <h3>Yeni Kateqoriya</h3>
+    <form action="/admin/categories" method="POST" enctype="multipart/form-data">
+      <div class="form-group">
+        <label>Ad (AZ)</label>
+        <input type="text" name="nameAz" required placeholder="Qonaq otağı">
+      </div>
+      <div class="form-group">
+        <label>Name (EN)</label>
+        <input type="text" name="nameEn" required placeholder="Living Room">
+      </div>
+      <div class="form-group">
+        <label>Icon (FontAwesome class)</label>
+        <input type="text" name="icon" placeholder="fa-couch">
+      </div>
+      <div class="form-group">
+        <label>Şəkil</label>
+        <input type="file" name="image" accept="image/*">
+      </div>
+      <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> Əlavə et</button>
+    </form>
+  </div>
+
+  <!-- List -->
+  <div class="table-wrap">
+    <table class="admin-table">
+      <thead>
+        <tr><th>Şəkil/İkon</th><th>Ad (AZ)</th><th>Ad (EN)</th><th>Slug</th><th>Sil</th></tr>
+      </thead>
+      <tbody>
+        <% categories.forEach(cat => { %>
+        <tr>
+          <td>
+            <% if(cat.image) { %>
+              <img src="<%= cat.image %>" class="table-thumb" alt="">
+            <% } else { %>
+              <i class="fas <%= cat.icon || 'fa-tag' %>" style="font-size:1.5rem; color:#8B6914"></i>
+            <% } %>
+          </td>
+          <td><%= cat.name.az %></td>
+          <td><%= cat.name.en %></td>
+          <td><code><%= cat.slug %></code></td>
+          <td>
+            <form action="/admin/categories/<%= cat._id %>?_method=DELETE" method="POST" onsubmit="return confirm('Silinsin?')">
+              <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+            </form>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<%- include('layout-end') %>

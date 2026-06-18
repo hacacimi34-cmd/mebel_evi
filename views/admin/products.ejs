@@ -1,0 +1,49 @@
+<%- include('layout', { currentPage: 'products', pageTitle: 'Məhsullar', flashSuccess: typeof success !== 'undefined' ? success : null }) %>
+
+<div class="page-actions">
+  <a href="/admin/products/new" class="btn btn-primary"><i class="fas fa-plus"></i> Yeni Məhsul</a>
+</div>
+
+<div class="table-wrap">
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>Şəkil</th>
+        <th>Ad (AZ)</th>
+        <th>Kateqoriya</th>
+        <th>Qiymət</th>
+        <th>Endirim</th>
+        <th>Stok</th>
+        <th>Seçilmiş</th>
+        <th>Əməliyyat</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% products.forEach(p => { %>
+      <tr>
+        <td>
+          <% if(p.mainImage) { %>
+            <img src="<%= p.mainImage %>" class="table-thumb" alt="">
+          <% } else { %>
+            <div class="no-thumb"><i class="fas fa-image"></i></div>
+          <% } %>
+        </td>
+        <td><strong><%= p.name.az %></strong><br><small><%= p.name.en %></small></td>
+        <td><%= p.category?.az || '-' %></td>
+        <td><%= p.price %> ₼</td>
+        <td><%= p.discountPrice ? p.discountPrice + ' ₼' : '-' %></td>
+        <td><span class="badge-status <%= p.inStock ? 'order-delivered' : 'order-cancelled' %>"><%= p.inStock ? 'Var' : 'Yox' %></span></td>
+        <td><span class="badge-status <%= p.featured ? 'payment-paid' : '' %>"><%= p.featured ? '★' : '-' %></span></td>
+        <td class="table-actions">
+          <a href="/admin/products/<%= p._id %>/edit" class="btn btn-sm btn-outline"><i class="fas fa-edit"></i></a>
+          <form action="/admin/products/<%= p._id %>?_method=DELETE" method="POST" style="display:inline" onsubmit="return confirm('Silinsin?')">
+            <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+          </form>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+
+<%- include('layout-end') %>

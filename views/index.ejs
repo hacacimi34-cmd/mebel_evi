@@ -1,0 +1,272 @@
+<%- include('partials/header') %>
+
+<!-- Hero Slider -->
+<section class="hero" id="heroSection">
+
+  <!-- Slides -->
+  <div class="hero-slides">
+
+    <div class="hero-slide active" style="background-image: url('/img/hero1.jpg')">
+      <div class="slide-overlay"></div>
+      <div class="container slide-content">
+        <span class="hero-badge animate-in delay-1">✦ New Collection 2024</span>
+        <h1 class="animate-in delay-2"><%- lang === 'az' ? 'Eviniz Üçün<br>Premium Mebelər' : 'Premium Furniture<br>For Your Home' %></h1>
+        <p class="animate-in delay-3"><%= lang === 'az' ? 'Keyfiyyətli, zövqlü və sərfəli mebel kolleksiyalarımızı kəşf edin' : 'Discover our high-quality, stylish and affordable furniture collections' %></p>
+        <div class="hero-btns animate-in delay-4">
+          <a href="/products" class="btn btn-primary btn-lg"><%=t.shop_now%> <i class="fas fa-arrow-right"></i></a>
+          <a href="/about" class="btn btn-outline-white btn-lg"><%=t.explore%></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-slide" style="background-image: url('/img/hero2.jpg')">
+      <div class="slide-overlay"></div>
+      <div class="container slide-content">
+        <span class="hero-badge animate-in delay-1">✦ Premium Quality</span>
+        <h1 class="animate-in delay-2"><%- lang === 'az' ? 'Müasir Dizayn,<br>Klassik Zövq' : 'Modern Design,<br>Classic Taste' %></h1>
+        <p class="animate-in delay-3"><%= lang === 'az' ? 'Hər məhsul diqqətlə seçilmiş materiallardan hazırlanır' : 'Every product is crafted from carefully selected materials' %></p>
+        <div class="hero-btns animate-in delay-4">
+          <a href="/products?category=Living+Room" class="btn btn-primary btn-lg"><%= lang === 'az' ? 'Qonaq Otağı' : 'Living Room' %> <i class="fas fa-arrow-right"></i></a>
+          <a href="/about" class="btn btn-outline-white btn-lg"><%=t.explore%></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-slide" style="background-image: url('/img/hero3.jpg')">
+      <div class="slide-overlay"></div>
+      <div class="container slide-content">
+        <span class="hero-badge animate-in delay-1">✦ Bedroom Collection</span>
+        <h1 class="animate-in delay-2"><%- lang === 'az' ? 'Xəyalınızdakı<br>Yataq Otağı' : 'Your Dream<br>Bedroom' %></h1>
+        <p class="animate-in delay-3"><%= lang === 'az' ? 'Rahat yuxu üçün mükəmməl mebel dəstləri' : 'Perfect furniture sets for a comfortable sleep' %></p>
+        <div class="hero-btns animate-in delay-4">
+          <a href="/products?category=Bedroom" class="btn btn-primary btn-lg"><%= lang === 'az' ? 'Yataq Otağı' : 'Bedroom' %> <i class="fas fa-arrow-right"></i></a>
+          <a href="/about" class="btn btn-outline-white btn-lg"><%=t.explore%></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-slide" style="background-image: url('/img/hero4.jpg')">
+      <div class="slide-overlay"></div>
+      <div class="container slide-content">
+        <span class="hero-badge animate-in delay-1">✦ Special Offer — 30% Off</span>
+        <h1 class="animate-in delay-2"><%- lang === 'az' ? 'Mövsüm Endirimi<br>Başladı!' : 'Season Sale<br>Has Started!' %></h1>
+        <p class="animate-in delay-3"><%= lang === 'az' ? 'Seçilmiş məhsullara xüsusi endirimlər sizi gözləyir' : 'Special discounts on selected products await you' %></p>
+        <div class="hero-btns animate-in delay-4">
+          <a href="/products" class="btn btn-primary btn-lg"><%= lang === 'az' ? 'Endirimlərə Bax' : 'View Sales' %> <i class="fas fa-tag"></i></a>
+          <a href="/contact" class="btn btn-outline-white btn-lg"><%=t.contact%></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-slide" style="background-image: url('/img/hero5.jpg')">
+      <div class="slide-overlay"></div>
+      <div class="container slide-content">
+        <span class="hero-badge animate-in delay-1">✦ Free Delivery</span>
+        <h1 class="animate-in delay-2"><%- lang === 'az' ? 'Pulsuz Çatdırılma<br>200 AZN Üzərindən' : 'Free Delivery<br>On Orders Over 200 AZN' %></h1>
+        <p class="animate-in delay-3"><%= lang === 'az' ? 'Sifariş verin, biz çatdıraq — sürətli və etibarlı' : 'Place your order, we deliver — fast and reliable' %></p>
+        <div class="hero-btns animate-in delay-4">
+          <a href="/products" class="btn btn-primary btn-lg"><%=t.shop_now%> <i class="fas fa-arrow-right"></i></a>
+          <a href="/about" class="btn btn-outline-white btn-lg"><%=t.explore%></a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Navigation arrows -->
+  <button class="slider-arrow slider-prev" onclick="changeSlide(-1)"><i class="fas fa-chevron-left"></i></button>
+  <button class="slider-arrow slider-next" onclick="changeSlide(1)"><i class="fas fa-chevron-right"></i></button>
+
+  <!-- Dots -->
+  <div class="slider-dots">
+    <span class="dot active" onclick="goSlide(0)"></span>
+    <span class="dot" onclick="goSlide(1)"></span>
+    <span class="dot" onclick="goSlide(2)"></span>
+    <span class="dot" onclick="goSlide(3)"></span>
+    <span class="dot" onclick="goSlide(4)"></span>
+  </div>
+
+  <!-- Progress bar -->
+  <div class="slider-progress"><div class="slider-progress-bar" id="sliderProgress"></div></div>
+
+  <!-- Scroll indicator -->
+  <div class="scroll-indicator">
+    <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
+  </div>
+
+</section>
+
+<script>
+(function() {
+  let current = 0;
+  let timer;
+  const DURATION = 5000;
+  const slides = document.querySelectorAll('.hero-slide');
+  const dots   = document.querySelectorAll('.dot');
+  const bar    = document.getElementById('sliderProgress');
+
+  function show(n) {
+    slides[current].classList.remove('active', 'leaving');
+    slides[current].classList.add('leaving');
+    dots[current].classList.remove('active');
+    current = (n + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    slides[current].classList.remove('leaving');
+    dots[current].classList.add('active');
+    // Reset animasiyalar
+    slides[current].querySelectorAll('.animate-in').forEach(el => {
+      el.style.animation = 'none';
+      el.offsetHeight; // reflow
+      el.style.animation = '';
+    });
+    resetProgress();
+  }
+
+  function resetProgress() {
+    if (bar) { bar.style.transition = 'none'; bar.style.width = '0%'; setTimeout(() => { bar.style.transition = 'width ' + DURATION + 'ms linear'; bar.style.width = '100%'; }, 50); }
+  }
+
+  function next() { show(current + 1); }
+
+  function startTimer() { clearInterval(timer); timer = setInterval(next, DURATION); }
+
+  window.changeSlide = function(dir) { show(current + dir); startTimer(); };
+  window.goSlide     = function(n)   { show(n); startTimer(); };
+
+  // Başlat
+  resetProgress();
+  startTimer();
+
+  // Touch/swipe dəstəyi
+  let touchX = 0;
+  const hero = document.getElementById('heroSection');
+  hero.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
+  hero.addEventListener('touchend',   e => {
+    const diff = touchX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) { changeSlide(diff > 0 ? 1 : -1); }
+  }, { passive: true });
+})();
+</script>
+
+<!-- Features Bar -->
+<section class="features-bar">
+  <div class="container features-grid">
+    <div class="feature-item">
+      <i class="fas fa-truck"></i>
+      <div><strong><%= lang === 'az' ? 'Pulsuz Çatdırılma' : 'Free Delivery' %></strong><span><%= lang === 'az' ? '200 AZN üzərindən' : 'Orders over 200 AZN' %></span></div>
+    </div>
+    <div class="feature-item">
+      <i class="fas fa-shield-alt"></i>
+      <div><strong><%= lang === 'az' ? '2 İl Zəmanət' : '2 Year Warranty' %></strong><span><%= lang === 'az' ? 'Bütün məhsullara' : 'On all products' %></span></div>
+    </div>
+    <div class="feature-item">
+      <i class="fas fa-undo"></i>
+      <div><strong><%= lang === 'az' ? '30 Gün İade' : '30 Day Returns' %></strong><span><%= lang === 'az' ? 'Asanlıqla qaytarın' : 'Easy returns' %></span></div>
+    </div>
+    <div class="feature-item">
+      <i class="fas fa-headset"></i>
+      <div><strong><%= lang === 'az' ? '24/7 Dəstək' : '24/7 Support' %></strong><span><%= lang === 'az' ? 'Həmişə yanınızdayıq' : 'Always here for you' %></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Categories -->
+<% if(categories.length > 0) { %>
+<section class="section categories-section">
+  <div class="container">
+    <div class="section-header">
+      <h2><%=t.categories%></h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="categories-grid">
+      <% categories.forEach(cat => { %>
+      <a href="/products?category=<%= cat.name.en %>" class="category-card">
+        <div class="cat-img">
+          <% if(cat.image) { %>
+            <img src="<%= cat.image %>" alt="<%= cat.name[lang] || cat.name.az %>">
+          <% } else { %>
+            <i class="fas <%= cat.icon || 'fa-couch' %>"></i>
+          <% } %>
+        </div>
+        <span><%= cat.name[lang] || cat.name.az %></span>
+      </a>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<!-- Featured Products -->
+<% if(featured.length > 0) { %>
+<section class="section products-section">
+  <div class="container">
+    <div class="section-header">
+      <h2><%=t.featured%></h2>
+      <div class="section-line"></div>
+      <a href="/products" class="see-all"><%=t.all_products%> <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div class="products-grid">
+      <% featured.forEach(product => { %>
+      <%- include('partials/product-card', { product, t, lang }) %>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<!-- Banner CTA -->
+<section class="banner-cta">
+  <div class="container">
+    <div class="banner-content">
+      <h2><%= lang === 'az' ? 'Xüsusi Təklif - 30% Endirim' : 'Special Offer - 30% Off' %></h2>
+      <p><%= lang === 'az' ? 'Seçilmiş mebellərə bu həftə xüsusi endirim' : 'Special discount on selected furniture this week' %></p>
+      <a href="/products" class="btn btn-primary"><%=t.shop_now%></a>
+    </div>
+  </div>
+</section>
+
+<!-- New Arrivals -->
+<% if(newProducts.length > 0) { %>
+<section class="section products-section">
+  <div class="container">
+    <div class="section-header">
+      <h2><%=t.new_arrivals%></h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="products-grid">
+      <% newProducts.forEach(product => { %>
+      <%- include('partials/product-card', { product, t, lang }) %>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<!-- Testimonials -->
+<section class="section testimonials">
+  <div class="container">
+    <div class="section-header">
+      <h2><%= lang === 'az' ? 'Müştəri Rəyləri' : 'Customer Reviews' %></h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>"<%= lang === 'az' ? 'Mebellər çox keyfiyyətlidir. Çatdırılma sürətli oldu. Mütləq tövsiyə edirəm!' : 'The furniture is very high quality. Delivery was fast. I definitely recommend it!' %>"</p>
+        <div class="reviewer"><strong>Aynur H.</strong> <span>Bakı</span></div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>"<%= lang === 'az' ? 'Qiymətlər əlverişli, keyfiyyət isə əla. Ev üçün hamısını buradan aldım.' : 'Prices are affordable and quality is excellent. I bought everything for my home here.' %>"</p>
+        <div class="reviewer"><strong>Rauf M.</strong> <span>Gəncə</span></div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>"<%= lang === 'az' ? 'Dizayn mükəmməldir. Satış komandası çox peşəkardır.' : 'The design is perfect. The sales team is very professional.' %>"</p>
+        <div class="reviewer"><strong>Leyla K.</strong> <span>Sumqayıt</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

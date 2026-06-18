@@ -1,0 +1,6 @@
+{"name":{"az":"Mətbəx","en":"Kitchen"},"slug":"kitchen","icon":"fa-utensils","createdAt":{"$$date":1781642398719},"_id":"1hqkhStkF5ZCyF52"}
+{"name":{"az":"Uşaq Otağı","en":"Kids Room"},"slug":"kids-room","icon":"fa-child","createdAt":{"$$date":1781642398722},"_id":"CoPc11NNbiGuCzGL"}
+{"name":{"az":"Ofis","en":"Office"},"slug":"office","icon":"fa-laptop","createdAt":{"$$date":1781642398720},"_id":"IuYOdlWE6YEC2PGb"}
+{"name":{"az":"Qonaq Otağı","en":"Living Room"},"slug":"living-room","icon":"fa-couch","createdAt":{"$$date":1781642398716},"_id":"dd3YnEfWVayhoDnZ"}
+{"name":{"az":"Açıq Hava","en":"Outdoor"},"slug":"outdoor","icon":"fa-tree","createdAt":{"$$date":1781642398721},"_id":"jXavC3i052m7gz0I"}
+{"name":{"az":"Yataq Otağı","en":"Bedroom"},"slug":"bedroom","icon":"fa-bed","createdAt":{"$$date":1781642398718},"_id":"qFybcCEqTuu7M881"}

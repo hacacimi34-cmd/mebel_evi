@@ -1,0 +1,45 @@
+<%- include('layout', { currentPage: 'orders', pageTitle: 'Sifarişlər', flashSuccess: null }) %>
+
+<div class="filter-tabs">
+  <a href="/admin/orders" class="<%= currentStatus === 'all' ? 'active' : '' %>">Hamısı</a>
+  <a href="/admin/orders?status=new" class="<%= currentStatus === 'new' ? 'active' : '' %>">Yeni</a>
+  <a href="/admin/orders?status=processing" class="<%= currentStatus === 'processing' ? 'active' : '' %>">Hazırlanır</a>
+  <a href="/admin/orders?status=shipped" class="<%= currentStatus === 'shipped' ? 'active' : '' %>">Göndərilib</a>
+  <a href="/admin/orders?status=delivered" class="<%= currentStatus === 'delivered' ? 'active' : '' %>">Çatdırılıb</a>
+  <a href="/admin/orders?status=cancelled" class="<%= currentStatus === 'cancelled' ? 'active' : '' %>">Ləğv edilib</a>
+</div>
+
+<div class="table-wrap">
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>Sifariş #</th>
+        <th>Müştəri</th>
+        <th>Telefon</th>
+        <th>Məbləğ</th>
+        <th>Ödəniş Üsulu</th>
+        <th>Ödəniş</th>
+        <th>Status</th>
+        <th>Tarix</th>
+        <th>Əməliyyat</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% orders.forEach(order => { %>
+      <tr>
+        <td><strong>#<%= order.orderNumber %></strong></td>
+        <td><%= order.customer.name %></td>
+        <td><%= order.customer.phone %></td>
+        <td><strong><%= order.total.toFixed(2) %> ₼</strong></td>
+        <td><%= order.paymentMethod === 'card' ? 'Kart' : order.paymentMethod === 'transfer' ? 'Köçürmə' : 'Nağd' %></td>
+        <td><span class="badge-status payment-<%= order.paymentStatus %>"><%= order.paymentStatus === 'paid' ? 'Ödənilib' : order.paymentStatus === 'pending' ? 'Gözlənilir' : 'Uğursuz' %></span></td>
+        <td><span class="badge-status order-<%= order.orderStatus %>"><%= order.orderStatus === 'new' ? 'Yeni' : order.orderStatus === 'processing' ? 'Hazırlanır' : order.orderStatus === 'shipped' ? 'Göndərilib' : order.orderStatus === 'delivered' ? 'Çatdırılıb' : 'Ləğv edilib' %></span></td>
+        <td><%= order.createdAt.toLocaleDateString('az-AZ') %></td>
+        <td><a href="/admin/orders/<%= order._id %>" class="btn btn-sm btn-outline">Bax</a></td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+
+<%- include('layout-end') %>

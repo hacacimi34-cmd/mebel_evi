@@ -1,0 +1,61 @@
+<%- include('layout', { currentPage: 'orders', pageTitle: 'Sifariş #' + order.orderNumber, flashSuccess: typeof success !== 'undefined' ? success : null }) %>
+
+<div class="order-detail-layout">
+  <div class="order-info-card">
+    <h3>Müştəri Məlumatları</h3>
+    <div class="info-row"><span>Ad Soyad:</span><strong><%= order.customer.name %></strong></div>
+    <div class="info-row"><span>Email:</span><strong><%= order.customer.email %></strong></div>
+    <div class="info-row"><span>Telefon:</span><strong><%= order.customer.phone %></strong></div>
+    <div class="info-row"><span>Şəhər:</span><strong><%= order.customer.city %></strong></div>
+    <div class="info-row"><span>Ünvan:</span><strong><%= order.customer.address %></strong></div>
+    <% if(order.notes) { %>
+    <div class="info-row"><span>Qeydlər:</span><strong><%= order.notes %></strong></div>
+    <% } %>
+  </div>
+
+  <div class="order-info-card">
+    <h3>Ödəniş Məlumatları</h3>
+    <div class="info-row"><span>Ödəniş üsulu:</span><strong><%= order.paymentMethod === 'card' ? 'Kart' : order.paymentMethod === 'transfer' ? 'Bank Köçürməsi' : 'Nağd' %></strong></div>
+    <div class="info-row"><span>Ödəniş statusu:</span>
+      <span class="badge-status payment-<%= order.paymentStatus %>"><%= order.paymentStatus === 'paid' ? 'Ödənilib' : order.paymentStatus === 'pending' ? 'Gözlənilir' : 'Uğursuz' %></span>
+    </div>
+    <div class="info-row"><span>Tarix:</span><strong><%= order.createdAt.toLocaleString('az-AZ') %></strong></div>
+    <div class="info-row"><span>Cəmi:</span><strong class="price-big"><%= order.total.toFixed(2) %> ₼</strong></div>
+  </div>
+
+  <div class="order-info-card full-width">
+    <h3>Status Yenilə</h3>
+    <form action="/admin/orders/<%= order._id %>/status?_method=PUT" method="POST" class="status-form">
+      <select name="status">
+        <option value="new" <%= order.orderStatus === 'new' ? 'selected' : '' %>>Yeni</option>
+        <option value="processing" <%= order.orderStatus === 'processing' ? 'selected' : '' %>>Hazırlanır</option>
+        <option value="shipped" <%= order.orderStatus === 'shipped' ? 'selected' : '' %>>Göndərilib</option>
+        <option value="delivered" <%= order.orderStatus === 'delivered' ? 'selected' : '' %>>Çatdırılıb</option>
+        <option value="cancelled" <%= order.orderStatus === 'cancelled' ? 'selected' : '' %>>Ləğv edilib</option>
+      </select>
+      <button type="submit" class="btn btn-primary">Yenilə</button>
+    </form>
+  </div>
+
+  <div class="order-info-card full-width">
+    <h3>Sifariş Maddələri</h3>
+    <table class="admin-table">
+      <thead><tr><th>Şəkil</th><th>Məhsul</th><th>Qiymət</th><th>Miqdar</th><th>Cəmi</th></tr></thead>
+      <tbody>
+        <% order.items.forEach(item => { %>
+        <tr>
+          <td><% if(item.image) { %><img src="<%= item.image %>" class="table-thumb"><% } %></td>
+          <td><%= item.name %></td>
+          <td><%= item.price %> ₼</td>
+          <td><%= item.qty %></td>
+          <td><strong><%= (item.price * item.qty).toFixed(2) %> ₼</strong></td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<a href="/admin/orders" class="btn btn-outline"><i class="fas fa-arrow-left"></i> Geri</a>
+
+<%- include('layout-end') %>

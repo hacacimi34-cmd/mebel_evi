@@ -1,0 +1,67 @@
+<footer class="footer">
+  <div class="footer-top">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <div class="logo">
+          <span class="logo-icon"><i class="fas fa-couch"></i></span>
+          <div class="logo-text">
+            <span class="logo-main">Mebel Evi</span>
+            <span class="logo-sub">Premium Furniture</span>
+          </div>
+        </div>
+        <p><%=t.footer_desc%></p>
+        <div class="social-links">
+          <a href="https://facebook.com/mebelevi" target="_blank" rel="noopener" title="Facebook"><i class="fab fa-facebook"></i></a>
+          <a href="https://instagram.com/mebelevi" target="_blank" rel="noopener" title="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://wa.me/994XXXXXXXXX" target="_blank" rel="noopener" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          <a href="https://tiktok.com/@mebelevi" target="_blank" rel="noopener" title="TikTok"><i class="fab fa-tiktok"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4><%=t.quick_links%></h4>
+        <ul>
+          <li><a href="/"><%=t.home%></a></li>
+          <li><a href="/products"><%=t.products%></a></li>
+          <li><a href="/about"><%=t.about%></a></li>
+          <li><a href="/contact"><%=t.contact%></a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4><%=t.categories%></h4>
+        <ul>
+          <li><a href="/products?category=Living+Room"><%=t.living_room%></a></li>
+          <li><a href="/products?category=Bedroom"><%=t.bedroom%></a></li>
+          <li><a href="/products?category=Kitchen"><%=t.kitchen%></a></li>
+          <li><a href="/products?category=Office"><%=t.office%></a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4><%=t.contact%></h4>
+        <ul class="contact-info">
+          <li><i class="fas fa-map-marker-alt"></i> Bakı, Neftçilər pr. 12</li>
+          <li><i class="fas fa-phone"></i> <a href="tel:+994123456789" style="color:inherit">+994 12 345 67 89</a></li>
+          <li><i class="fas fa-envelope"></i> <a href="mailto:info@mebelevi.az" style="color:inherit">info@mebelevi.az</a></li>
+          <li><i class="fas fa-clock"></i> B.E-Ş 09:00-19:00</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>&copy; <%= new Date().getFullYear() %> Mebel Evi. <%=t.all_rights%>.</p>
+      <div class="payment-icons">
+        <i class="fab fa-cc-visa"></i>
+        <i class="fab fa-cc-mastercard"></i>
+        <i class="fas fa-money-bill-wave"></i>
+        <i class="fas fa-university"></i>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/main.js"></script>
+</body>
+</html>

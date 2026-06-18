@@ -1,0 +1,137 @@
+<%- include('layout', { currentPage: 'products', pageTitle: product ? 'Məhsulu Düzəlt' : 'Yeni Məhsul', flashSuccess: null }) %>
+
+<div class="form-card">
+  <form action="<%= product ? '/admin/products/' + product._id + '?_method=PUT' : '/admin/products' %>" method="POST" enctype="multipart/form-data">
+    
+    <div class="form-section">
+      <h4>Ad (Azərbaycan)</h4>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Ad (AZ) *</label>
+          <input type="text" name="nameAz" required value="<%= product ? product.name.az : '' %>">
+        </div>
+        <div class="form-group">
+          <label>Ad (EN) *</label>
+          <input type="text" name="nameEn" required value="<%= product ? product.name.en : '' %>">
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h4>Təsvir</h4>
+      <div class="form-group">
+        <label>Təsvir (AZ)</label>
+        <textarea name="descAz" rows="4"><%= product ? (product.description?.az || '') : '' %></textarea>
+      </div>
+      <div class="form-group">
+        <label>Description (EN)</label>
+        <textarea name="descEn" rows="4"><%= product ? (product.description?.en || '') : '' %></textarea>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h4>Qiymət</h4>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Qiymət (₼) *</label>
+          <input type="number" name="price" required min="0" step="0.01" value="<%= product ? product.price : '' %>">
+        </div>
+        <div class="form-group">
+          <label>Endirimli Qiymət (₼)</label>
+          <input type="number" name="discountPrice" min="0" step="0.01" value="<%= product ? (product.discountPrice || '') : '' %>">
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h4>Kateqoriya</h4>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Kateqoriya (AZ)</label>
+          <input type="text" name="catAz" value="<%= product ? (product.category?.az || '') : '' %>" placeholder="Qonaq otağı">
+          <small>Mövcud kateqoriyalar: <% categories.forEach(c => { %><em><%= c.name.az %></em>, <% }) %></small>
+        </div>
+        <div class="form-group">
+          <label>Category (EN)</label>
+          <input type="text" name="catEn" value="<%= product ? (product.category?.en || '') : '' %>" placeholder="Living Room">
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h4>Material və Ölçülər</h4>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Material (AZ)</label>
+          <input type="text" name="matAz" value="<%= product ? (product.material?.az || '') : '' %>">
+        </div>
+        <div class="form-group">
+          <label>Material (EN)</label>
+          <input type="text" name="matEn" value="<%= product ? (product.material?.en || '') : '' %>">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Ölçülər (e.g. 200x90x80 sm)</label>
+        <input type="text" name="dimensions" value="<%= product ? (product.dimensions || '') : '' %>">
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h4>Şəkillər</h4>
+      <div class="form-group">
+        <label>Şəkil yüklə (max 5MB, jpg/png/webp)</label>
+        <input type="file" name="images" multiple accept="image/*" id="imageInput">
+        <div class="image-preview" id="imagePreview"></div>
+      </div>
+      <% if(product && product.images && product.images.length > 0) { %>
+        <div class="current-images">
+          <p><strong>Mövcud şəkillər:</strong></p>
+          <div class="img-grid">
+            <% product.images.forEach(img => { %>
+              <img src="<%= img %>" alt="">
+            <% }) %>
+          </div>
+        </div>
+      <% } %>
+    </div>
+
+    <div class="form-section">
+      <h4>Seçimlər</h4>
+      <div class="form-row">
+        <label class="toggle-label">
+          <input type="checkbox" name="inStock" <%= (!product || product.inStock) ? 'checked' : '' %>>
+          <span class="toggle"></span>
+          Stokda var
+        </label>
+        <label class="toggle-label">
+          <input type="checkbox" name="featured" <%= (product && product.featured) ? 'checked' : '' %>>
+          <span class="toggle"></span>
+          Seçilmiş məhsul
+        </label>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Yadda Saxla</button>
+      <a href="/admin/products" class="btn btn-outline">Ləğv et</a>
+    </div>
+  </form>
+</div>
+
+<script>
+document.getElementById('imageInput').addEventListener('change', function() {
+  const preview = document.getElementById('imagePreview');
+  preview.innerHTML = '';
+  Array.from(this.files).forEach(file => {
+    const reader = new FileReader();
+    reader.onload = e => {
+      const img = document.createElement('img');
+      img.src = e.target.result;
+      preview.appendChild(img);
+    };
+    reader.readAsDataURL(file);
+  });
+});
+</script>
+
+<%- include('layout-end') %>

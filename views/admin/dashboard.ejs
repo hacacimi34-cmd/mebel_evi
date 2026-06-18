@@ -1,0 +1,77 @@
+<%- include('layout', { currentPage: 'dashboard', pageTitle: 'Dashboard', flashSuccess: null }) %>
+
+<div class="stats-grid">
+  <div class="stat-card">
+    <div class="stat-icon products"><i class="fas fa-box"></i></div>
+    <div class="stat-info">
+      <h3><%= totalProducts %></h3>
+      <span>Məhsullar</span>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon orders"><i class="fas fa-shopping-cart"></i></div>
+    <div class="stat-info">
+      <h3><%= totalOrders %></h3>
+      <span>Sifarişlər</span>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon new-orders"><i class="fas fa-bell"></i></div>
+    <div class="stat-info">
+      <h3><%= newOrders %></h3>
+      <span>Yeni Sifarişlər</span>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon revenue"><i class="fas fa-manat-sign"></i></div>
+    <div class="stat-info">
+      <h3><%= totalRevenue.toFixed(0) %> ₼</h3>
+      <span>Gəlir</span>
+    </div>
+  </div>
+</div>
+
+<div class="dashboard-section">
+  <div class="section-head">
+    <h3>Son Sifarişlər</h3>
+    <a href="/admin/orders" class="btn btn-sm btn-primary">Hamısı</a>
+  </div>
+  <div class="table-wrap">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Sifariş #</th>
+          <th>Müştəri</th>
+          <th>Məbləğ</th>
+          <th>Ödəniş</th>
+          <th>Status</th>
+          <th>Tarix</th>
+          <th>Əməliyyat</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% recentOrders.forEach(order => { %>
+        <tr>
+          <td><strong>#<%= order.orderNumber %></strong></td>
+          <td><%= order.customer.name %></td>
+          <td><%= order.total.toFixed(2) %> ₼</td>
+          <td>
+            <span class="badge-status payment-<%= order.paymentStatus %>">
+              <%= order.paymentStatus === 'paid' ? 'Ödənilib' : order.paymentStatus === 'pending' ? 'Gözlənilir' : 'Uğursuz' %>
+            </span>
+          </td>
+          <td>
+            <span class="badge-status order-<%= order.orderStatus %>">
+              <%= order.orderStatus === 'new' ? 'Yeni' : order.orderStatus === 'processing' ? 'Hazırlanır' : order.orderStatus === 'shipped' ? 'Göndərilib' : order.orderStatus === 'delivered' ? 'Çatdırılıb' : 'Ləğv edilib' %>
+            </span>
+          </td>
+          <td><%= order.createdAt.toLocaleDateString('az-AZ') %></td>
+          <td><a href="/admin/orders/<%= order._id %>" class="btn btn-sm btn-outline">Bax</a></td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<%- include('layout-end') %>
