@@ -18,7 +18,7 @@
       <div class="product-gallery">
         <div class="main-image">
           <% if(product.mainImage) { %>
-            <img src="<%= product.mainImage %>" alt="<%= product.name[lang] %>" id="mainImg">
+            <img src="/uploads/products/<%= product.mainImage %>" alt="<%= product.name[lang] %>" id="mainImg">
           <% } else { %>
             <div class="no-img-lg"><i class="fas fa-couch"></i></div>
           <% } %>
