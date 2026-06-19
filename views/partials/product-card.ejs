@@ -2,7 +2,7 @@
   <div class="product-img-wrap">
     <a href="/products/<%= product.slug %>">
       <% if(product.mainImage) { %>
-       <img src="/img/<%= product.mainImage %>" alt="Mebel" class="product-img">
+        <img src="/uploads/products/<%= product.mainImage %>" alt="Mebel" class="product-img">
       <% } else { %>
         <div class="no-img"><i class="fas fa-couch"></i></div>
       <% } %>
