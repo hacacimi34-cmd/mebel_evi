@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
   const lang = req.session.lang || 'az';
   const { category, sort, search, min, max } = req.query;
 
-  let query = { inStock: true };
+  let query = {  };
   if (search) {
     query.$or = [
       { 'name.az': { $regex: search, $options: 'i' } },
