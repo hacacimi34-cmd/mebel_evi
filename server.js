@@ -9,7 +9,7 @@ const path = require('path');
 const app = express();
 
 // MongoDB
-const dbURI = process.env.MONGODB_URI || 'mongodb+srv://hacacimi34_db_user:tFuhqsuEMXXWBti0@cluster0.16wbenj.mongodb.net/?retryWrites=true&w=majority';
+const dbiURI = process.env.MONGODB_URI || 'mongodb+srv://hacacimi34_db_user:tFuhqsuEMXXWBti@cluster0.16wbenj.mongodb.net/bellissa_mebel?retryWrites=true&w=majority';
 mongoose.connect(dbURI)
   .then(() => console.log('✅ Bazaya uğurla qoşulduq!'))
   .catch((err) => console.log('❌ Xəta:', err));
