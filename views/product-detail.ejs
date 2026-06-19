@@ -14,26 +14,27 @@
 <section class="section">
   <div class="container">
     <div class="product-detail-layout">
-      <!-- Images -->
       <div class="product-gallery">
         <div class="main-image">
           <% if(product.mainImage) { %>
-           <img src="/img/<%= product.mainImage %>" alt="Mebel" class="product-img">
+            <img src="/uploads/products/<%= product.mainImage %>" id="mainImg" alt="Mebel" class="product-img">
           <% } else { %>
             <div class="no-img-lg"><i class="fas fa-couch"></i></div>
           <% } %>
         </div>
+        
         <% if(product.images && product.images.length > 1) { %>
         <div class="thumb-grid">
           <% product.images.forEach((img, i) => { %>
-          <img src="/uploads/products/<%= img %>" class="thumb-img <%= i===0 ? 'active':'' %>" ... >
-            onclick="document.getElementById('mainImg').src='<%= img %>'; document.querySelectorAll('.thumb-img').forEach(t=>t.classList.remove('active')); this.classList.add('active')">
+            <img src="/uploads/products/<%= img %>" 
+                 class="thumb-img <%= i===0 ? 'active':'' %>" 
+                 alt="Mebel thumb"
+                 onclick="document.getElementById('mainImg').src='/uploads/products/<%= img %>'; document.querySelectorAll('.thumb-img').forEach(t=>t.classList.remove('active')); this.classList.add('active')">
           <% }) %>
         </div>
         <% } %>
       </div>
 
-      <!-- Info -->
       <div class="product-detail-info">
         <span class="product-category"><%= product.category ? (product.category[lang] || product.category.az) : '' %></span>
         <h1><%= product.name[lang] || product.name.az %></h1>
@@ -87,7 +88,6 @@
       </div>
     </div>
 
-    <!-- Related -->
     <% if(related.length > 0) { %>
     <div class="related-section">
       <h2><%=t.related%></h2>
