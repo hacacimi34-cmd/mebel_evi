@@ -19,13 +19,12 @@ router.get('/', async (req, res) => {
       ];
     }
 
-    // 2. Kateqoriya süzgəci (YALNIZ kateqoriya seçilibsə işə düşür)
+    // 2. Kateqoriya süzgəci (Yalnız kateqoriya seçildikdə işləsin)
     if (category) {
-      // Əgər bazada kateqoriyanı obyekt yox, sadəcə string saxlamısansa, bura sadəcə query.category = category; edilə bilər.
       query['category.en'] = category;
     }
 
-    // 3. Qiymət süzgəci
+    // 3. Qiymət süzgəci (Boş string gəldikdə bazanı kilidləməsin)
     if (min || max) {
       query.price = {};
       if (min && !isNaN(min)) query.price.$gte = Number(min);
@@ -37,13 +36,13 @@ router.get('/', async (req, res) => {
     if (sort === 'price-asc')  sortObj = { price: 1 };
     if (sort === 'price-desc') sortObj = { price: -1 };
 
-    // Verilənlər bazasından məlumatların çəkilməsi
+    // Bazadan məlumatları çəkirik
     const [products, categories] = await Promise.all([
       Product.find(query).sort(sortObj),
       Category.find()
     ]);
 
-    // Əgər hələ də məhsul tapılmırsa, test üçün bazada ümumi neçə məhsul olduğunu loqda görək
+    // Əgər hələ də 0 məhsul deyirsə, Render terminalında ümumi sayı görək
     if (products.length === 0) {
       const totalInDB = await Product.countDocuments({});
       console.log(`⚠️ Filtr daxilində məhsul tapılmadı. Amma bazada ümumi ${totalInDB} məhsul var.`);
@@ -51,8 +50,8 @@ router.get('/', async (req, res) => {
 
     res.render('products', { products, categories, query: req.query, t: t(lang), lang });
   } catch (err) {
-    console.error("Məhsulları çəkərkən xəta:", err);
-    res.status(500).send("Server xətası baş verdi.");
+    console.error("Məhsul çəkilərkən xəta baş verdi:", err);
+    res.status(500).send("Server xətası");
   }
 });
 
@@ -63,17 +62,15 @@ router.get('/:slug', async (req, res) => {
     
     if (!product) return res.redirect('/products');
 
-    // Oxşar məhsulları gətirərkən xəta olmasın deyə təhlükəsizlik şərti
     let relatedQuery = { _id: { $ne: product._id } };
     if (product.category && product.category.en) {
       relatedQuery['category.en'] = product.category.en;
     }
 
     const related = await Product.find(relatedQuery).limit(4);
-    
     res.render('product-detail', { product, related, t: t(lang), lang });
   } catch (err) {
-    console.error("Məhsul detalları xətası:", err);
+    console.error("Məhsul detalı xətası:", err);
     res.redirect('/products');
   }
 });
