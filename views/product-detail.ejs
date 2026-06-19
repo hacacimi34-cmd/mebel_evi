@@ -17,7 +17,7 @@
       <div class="product-gallery">
         <div class="main-image">
           <% if(product.mainImage) { %>
-            <img src="/uploads/products/<%= product.mainImage %>" id="mainImg" alt="Mebel" class="product-img">
+            <img src="<%= product.mainImage %>" id="mainImg" alt="Mebel" class="product-img">
           <% } else { %>
             <div class="no-img-lg"><i class="fas fa-couch"></i></div>
           <% } %>
@@ -26,10 +26,10 @@
         <% if(product.images && product.images.length > 1) { %>
         <div class="thumb-grid">
           <% product.images.forEach((img, i) => { %>
-            <img src="/uploads/products/<%= img %>" 
+            <img src="<%= img %>" 
                  class="thumb-img <%= i===0 ? 'active':'' %>" 
                  alt="Mebel thumb"
-                 onclick="document.getElementById('mainImg').src='/uploads/products/<%= img %>'; document.querySelectorAll('.thumb-img').forEach(t=>t.classList.remove('active')); this.classList.add('active')">
+                 onclick="document.getElementById('mainImg').src='<%= img %>'; document.querySelectorAll('.thumb-img').forEach(t=>t.classList.remove('active')); this.classList.add('active')">
           <% }) %>
         </div>
         <% } %>
